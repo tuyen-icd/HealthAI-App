@@ -1,62 +1,61 @@
-# HealthAI-App
+# HealthAI-App: An Overview
 
-HealthAI-App là ứng dụng di động giúp phân tích dinh dưỡng từ hình ảnh món ăn bằng AI.  
-Ứng dụng hỗ trợ đa ngôn ngữ: Tiếng Việt, Tiếng Anh và Tiếng Nhật.
+HealthAI-App is a mobile application that uses AI to analyze nutritional information from food images. 
+The app supports multiple languages: Vietnamese, English, and Japanese.
 
 ---
 
-## Tính năng
+## Features
 
-- Nhập **tuổi, cân nặng, chiều cao** của người dùng  
-- Chụp hoặc chọn ảnh món ăn từ thư viện  
-- AI phân tích và hiển thị thông tin dinh dưỡng:
+- User Information Input: Enter your age, weight, and height.
+- Image Selection: Capture or select food photos from your device's library.
+- AI-Powered Analysis: The AI analyzes the food and displays detailed nutritional information, including:
   - Calo
   - Protein
   - Carbs
-  - Chất béo
-  - Nguyên liệu
-  - Lợi ích dinh dưỡng
-- Gợi ý mức vận động cần thiết để cân bằng năng lượng  
-- Onboarding hướng dẫn cho người dùng lần đầu sử dụng  
-- Hỗ trợ chuyển đổi ngôn ngữ **VN / EN / JP**  
+  - Fat
+  - Ingredients
+  - Nutritional benefits
+- Exercise Suggestions: Provides recommended exercise levels to balance energy intake.
+- Onboarding: A guided onboarding process for first-time users.
+- Language Switch: Supports quick language switching between VN / EN / JP.
 
 ---
 
-## Công nghệ sử dụng
+## Technologies Used
 
-- **React Native** với **Expo**
-- **Google Gemini API** để phân tích hình ảnh món ăn  
-- **AsyncStorage** để lưu trạng thái onboarding  
-- **expo-image-picker** để chọn hoặc chụp ảnh món ăn  
+- **React Native** with **Expo**
+- **Google Gemini API** for food image analysis
+- **AsyncStorage** for local onboarding status storage
+- **expo-image-picker** for selecting or capturing food images
 
 ---
 
-## Cài đặt & Chạy dự án
+## Installation & Running the Project
 
-### 1. Clone repo
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/tuyen-icd/HealthAI-App.git
 cd HealthAI-App
 ````
 
-### 2. Cài Dependencies
+### 2. Install Dependencies
 ```
 npm install
-# hoặc
+# or
 yarn install
 ```
 
-### 3. Thiết lập biến môi trường (Nếu source đã có file .env rồi thì bỏ qua bước này HOẶC bạn có thể dùng GEMINI_API_KEY của riêng bạn )
+### 3. Set up Environment Variables (Skip if you already have a .env file)
 ```
-Tạo file .env ở thư mục gốc với nội dung:
+Create a .env file in the root directory with the following content:
 EXPO_PUBLIC_GEMINI_API_KEY=<your_gemini_api_key>
 ```
 
-### 4. Chạy app trong môi trường phát triển
+### 4. Run the App in a Development Environment
 ```
 npx expo start
 
-Quét QR code bằng Expo Go trên điện thoại
-Hoặc chạy trên Android/iOS simulator
+Scan the QR code with Expo Go on your phone, or run it on an Android/iOS simulator.
 ```
