@@ -47,7 +47,7 @@ npm install
 yarn install
 ```
 
-### 3. Thiết lập biến môi trường (Nếu đã có file .env rồi thì bỏ qua bước này )
+### 3. Thiết lập biến môi trường (Nếu source đã có file .env rồi thì bỏ qua bước này HOẶC bạn có thể dùng GEMINI_API_KEY của riêng bạn )
 ```
 Tạo file .env ở thư mục gốc với nội dung:
 EXPO_PUBLIC_GEMINI_API_KEY=<your_gemini_api_key>
