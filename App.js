@@ -14,6 +14,10 @@ import {
 import * as ImagePicker from "expo-image-picker";
 import { stepsOnboarding, translations } from "./src/store/translateUI";
 import Constants from "expo-constants";
+import {
+  SafeAreaProvider,
+  useSafeAreaInsets,
+} from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const API_KEY = Constants.expoConfig.extra.geminiApiKey;
@@ -44,38 +48,29 @@ export default function App() {
     }
   };
 
-  if (showOnboarding) {
-    return <OnboardingScreen step={step} onNext={handleNext} />;
-  }
+  // if (showOnboarding) {
+  //   return <OnboardingScreen step={step} onNext={handleNext} />;
+  // }
 
-  return <MainApp />;
+  // return <MainApp />;
+  return (
+    <SafeAreaProvider>
+      {showOnboarding ? (
+        <OnboardingScreen step={step} onNext={handleNext} />
+      ) : (
+        <MainApp />
+      )}
+    </SafeAreaProvider>
+  );
 }
 function OnboardingScreen({ step, onNext }) {
-  // const steps = [
-  //   {
-  //     title: "👋 Chào mừng bạn đến với HealthAI!",
-  //     text:
-  //       "Ứng dụng giúp bạn phân tích dinh dưỡng từ món ăn 🍜\n\n" +
-  //       "👉 Nhập tuổi, cân nặng, chiều cao và chọn ảnh món ăn.\n\n" +
-  //       "🧠 AI sẽ phân tích và gợi ý chế độ ăn phù hợp.",
-  //   },
-  //   {
-  //     title: "👋 Welcome to HealthAI!",
-  //     text:
-  //       "This app helps you analyze nutrition from your food 🍔\n\n" +
-  //       "👉 Enter your age, weight, height, and choose a food photo.\n\n" +
-  //       "🧠 AI will analyze and suggest a suitable diet.",
-  //   },
-  //   {
-  //     title: "👋 ヘルスAIへようこそ!",
-  //     text:
-  //       "このアプリは料理の栄養を分析します 🍣\n\n" +
-  //       "👉 年齢、体重、身長を入力し、食べ物の写真を選んでください。\n\n" +
-  //       "🧠 AIが分析して適切な食事を提案します。",
-  //   },
-  // ];
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
+    <SafeAreaView
+      style={{
+        flex: 1,
+        backgroundColor: "#fff",
+      }}
+    >
       <View style={styles.onboardContainer}>
         <Image
           source={require("./assets/Gemini_Generated.jpeg")}
@@ -99,6 +94,7 @@ function MainApp() {
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
   const [lang, setLang] = useState("vi");
+  const insets = useSafeAreaInsets();
 
   const [tooltipVisible, setTooltipVisible] = useState(false);
   const [selectModalVisible, setSelectModalVisible] = useState(false);
@@ -150,7 +146,7 @@ function MainApp() {
 
     try {
       const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${API_KEY}`,
+        `https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=${API_KEY}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -160,11 +156,11 @@ function MainApp() {
                 parts: [
                   {
                     text: `
-                    You are a nutrition assistant.
-                    Analyze this food picture and return JSON with fields {name, ingredients, calories, protein, carbs, fat, benefits}.
-                    Each field must have translations in 3 languages: Vietnamese (vi), English (en), Japanese (ja).
-                    Return ONLY JSON, no explanation.
-                    `,
+                You are a nutrition assistant.
+                Analyze this food picture and return JSON with fields {name, ingredients, calories, protein, carbs, fat, benefits}.
+                Each field must have translations in 3 languages: Vietnamese (vi), English (en), Japanese (ja).
+                Return ONLY JSON, no explanation.
+              `,
                   },
                   { inline_data: { mime_type: "image/jpeg", data: base64 } },
                 ],
@@ -174,14 +170,20 @@ function MainApp() {
         }
       );
 
+      // console.log("response", response);
+
       const data = await response.json();
+      // console.log("Gemini API error:", data);
       let text = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
       text = text.replace(/```json|```/g, "").trim();
+
+      // console.log("Raw Gemini response text:", text); // Debug log
 
       try {
         const parsed = JSON.parse(text);
         setFoodData(parsed);
       } catch (e) {
+        console.error("JSON parse error:", e); // Debug log
         setErrorMsg("⚠️ Không đọc được JSON từ Gemini.");
       }
     } catch (err) {
@@ -228,8 +230,18 @@ function MainApp() {
   const burnInfo = getCalorieBurnInfo();
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
-      <View style={styles.container}>
+    <SafeAreaView
+      style={{
+        flex: 1,
+        backgroundColor: "#fff",
+      }}
+    >
+      <View
+        style={[
+          styles.container,
+          { paddingTop: insets.top, paddingBottom: insets.bottom },
+        ]}
+      >
         <ScrollView contentContainerStyle={{ padding: 20 }}>
           {/* Header */}
           <Text style={styles.title}> {translations[lang].title}</Text>
@@ -454,7 +466,15 @@ function MainApp() {
                       kcal/day
                     </Text>
                     <TouchableOpacity onPress={() => setTooltipVisible(true)}>
-                      <Text style={{ marginLeft: 5 }}>ℹ️</Text>
+                      <Text
+                        style={{
+                          marginLeft: 5,
+                          fontSize: 25,
+                          borderRadius: 100,
+                        }}
+                      >
+                        ℹ️
+                      </Text>
                     </TouchableOpacity>
                   </View>
 
@@ -464,7 +484,7 @@ function MainApp() {
                       {burnInfo.bmrFemale.toFixed(0)} kcal/day
                     </Text>
                     <TouchableOpacity onPress={() => setTooltipVisible(true)}>
-                      <Text style={{ marginLeft: 5 }}>ℹ️</Text>
+                      <Text style={{ marginLeft: 5, fontSize: 25 }}>ℹ️</Text>
                     </TouchableOpacity>
                   </View>
 
