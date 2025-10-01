@@ -1,6 +1,6 @@
 # HealthAI-App: An Overview
 
-HealthAI-App is a mobile application that uses AI to analyze nutritional information from food images. 
+HealthAI-App is a mobile application that uses AI to analyze nutritional information from food images.
 The app supports multiple languages: Vietnamese, English, and Japanese.
 
 ---
@@ -38,9 +38,10 @@ The app supports multiple languages: Vietnamese, English, and Japanese.
 ```bash
 git clone https://github.com/tuyen-icd/HealthAI-App.git
 cd HealthAI-App
-````
+```
 
 ### 2. Install Dependencies
+
 ```
 npm install
 # or
@@ -48,14 +49,18 @@ yarn install
 ```
 
 ### 3. Set up Environment Variables (Skip if you already have a .env file)
+
 ```
 Create a .env file in the root directory with the following content:
 EXPO_PUBLIC_GEMINI_API_KEY=<your_gemini_api_key>
 ```
 
 ### 4. Run the App in a Development Environment
+
 ```
 npx expo start
 
 Scan the QR code with Expo Go on your phone, or run it on an Android/iOS simulator.
 ```
+
+HOW TO BUILD FILE APK FOR ANDROID APP: eas build -p android --profile preview

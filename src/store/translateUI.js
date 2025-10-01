@@ -35,6 +35,14 @@ export const translations = {
      • Gợi ý mức vận động cần thiết để cân bằng năng lượng.
     ✅Mục tiêu: Giúp bạn hiểu rõ hơn về chế độ ăn uống và sức khoẻ hằng ngày.`,
     analysis: "🔄 Phân tích lại",
+    foodLog: "📒 Nhật ký món ăn",
+    clear: "Xoá",
+    chatBot: "🤖 Chatbot dinh dưỡng",
+    titleModal: "📸 Chọn nguồn hình ảnh",
+    camera: "📷 Máy ảnh",
+    gallery: "🖼️ Thư viện",
+    cancel: "❌ Đóng",
+    Analyzing: "Đang phân tích...",
   },
   en: {
     title: "🥗 HealthAI",
@@ -72,6 +80,14 @@ export const translations = {
      • Suggest the necessary level of activity to balance energy.
     ✅Objective: Help you better understand your daily diet and health.`,
     analysis: "🔄 Re-analyze",
+    foodLog: "📒 Food Log",
+    clear: "Clear",
+    chatBot: "🤖 Nutrition Chatbot",
+    titleModal: "📸 Select image source",
+    camera: "📷 Camera",
+    gallery: "🖼️ Gallery",
+    cancel: "❌ Close",
+    Analyzing: "Analyzing...",
   },
   ja: {
     title: "🥗 ヘルスAI",
@@ -110,6 +126,14 @@ export const translations = {
     ✅目的: 毎日の食事と健康状態をより深く理解できるようにします。
     `,
     analysis: "🔄 再分析",
+    foodLog: "📒 食事ログ",
+    clear: "クリア",
+    chatBot: "🤖 栄養チャットボット",
+    titleModal: "📸 画像ソースを選択",
+    camera: "📷 カメラ",
+    gallery: "🖼️ ギャラリー",
+    cancel: "❌ 閉じる",
+    Analyzing: "分析中...",
   },
 };
 
@@ -139,3 +163,24 @@ export const stepsOnboarding = [
     nextBtnText: "始めましょう 🎉",
   },
 ];
+
+export const notifications = {
+  vi: {
+    warning: "⚠️ Cảnh báo",
+    title: "Dữ liệu sẽ bị xoá mất và không thể lấy lại. Bạn có muốn xoá không?",
+    cancel: "Huỷ",
+    confirm: "Đồng ý",
+  },
+  en: {
+    warning: "⚠️ Warning",
+    title: "Data will be permanently deleted. Do you want to proceed?",
+    cancel: "Cancel",
+    confirm: "Confirm",
+  },
+  ja: {
+    warning: "⚠️ 警告",
+    title: "データは完全に削除されます。続行しますか？",
+    cancel: "キャンセル",
+    confirm: "確認",
+  },
+};
