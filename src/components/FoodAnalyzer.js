@@ -157,12 +157,7 @@ export default function FoodAnalyzer() {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
-      <View
-        style={[
-          styles.container,
-          { paddingTop: insets.top, paddingBottom: insets.bottom },
-        ]}
-      >
+      <View style={[styles.container, { paddingTop: insets.top }]}>
         <ScrollView
           contentContainerStyle={{ padding: 20 }}
           showsVerticalScrollIndicator={false}
